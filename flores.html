@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lluvia de Pétalos Amarillos</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f9e79f, #f39c12); /* Fondo cálido */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    h1 {
+      margin: 0;
+      color: #ff9800;
+      font-size: 3em;
+      text-align: center;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+      font-family: 'Arial', sans-serif;
+      position: relative;
+      z-index: 10;
+    }
+    .letter-icon {
+      width: 80px; /* Tamaño de la carta */
+      height: auto;
+      margin-top: 20px; /* Espaciado con el título */
+      cursor: pointer;
+      z-index: 20;
+    }
+    .petal {
+      position: absolute;
+      width: 50px;
+      height: auto;
+      opacity: 0.9;
+      pointer-events: none;
+      filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.2));
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) translateX(0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) translateX(calc(20vw * var(--direction))) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌻 Cree en ti mismo y haz que suceda 🌻</h1>
+  <!-- Icono de carta -->
+  <img 
+    src="carta.png" 
+    alt="Carta" 
+    class="letter-icon" 
+    onclick="showMessage()"
+  />
+
+  <script>
+    function createPetal() {
+      const petal = document.createElement('img');
+      petal.classList.add('petal');
+      petal.src = "flor.png";
+
+      // Posición inicial aleatoria
+      petal.style.left = `${Math.random() * 100}vw`;
+      petal.style.top = `-10vh`;
+
+      // Tamaño aleatorio
+      const size = Math.random() * 40 + 20; // Entre 20px y 60px
+      petal.style.width = `${size}px`;
+
+      // Dirección aleatoria
+      petal.style.setProperty('--direction', Math.random() < 0.5 ? -1 : 1);
+
+      // Duración aleatoria
+      const fallDuration = Math.random() * 3 + 5; // Entre 5 y 8 segundos
+      petal.style.animation = `fall ${fallDuration}s linear infinite`;
+
+      document.body.appendChild(petal);
+
+      // Eliminar pétalos después de la animación
+      setTimeout(() => petal.remove(), fallDuration * 1000);
+    }
+
+    function startRain() {
+      setInterval(createPetal, 200); // Crear un pétalo cada 200ms
+    }
+
+    function showMessage() {
+      alert("🌟 Querida Sheily, Eres un rayo de luz que ilumina cada lugar que tocas con tu presencia. Que nunca te falten motivos para sonreír, sueños por los que luchar y momentos hermosos que disfrutar. Sigue siendo esa persona especial que inspira a los demás con tu bondad y alegría. 🌻✨"); // Mostrar mensaje al hacer clic en la carta
+    }
+
+    startRain();
+  </script>
+</body>
+</html>
